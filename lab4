@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 4 - Invertir Texto</title>
+  <style>
+    body {
+      color: white;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+      width: 100vw;
+    }
+    main {
+      width: 70vw;
+    }
+    fieldset {
+      border-radius: 5px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+    }
+    form > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    span {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section>
+      <fieldset>
+        <form id="form1">
+          <div>
+            <label for="input-text">Escriba algo: </label>
+            <input type="text" id="input-text" name="text-input" required>
+          </div>
+          <div>
+            <label for="color-select">Seleccione un color: </label>
+            <select id="color-select">
+              <option value="red">Rojo</option>
+              <option value="green">Verde</option>
+              <option value="blue">Azul</option>
+            </select>
+          </div>
+        </form>
+        <div>Texto invertido: <span id="inverted-text"></span></div>
+      </fieldset>
+    </section>
+  </main>
+
+  <script>
+    const TextInverter = (() => {
+      const htmlElements = {
+        inputField: document.querySelector('#input-text'),
+        invertedTextSpan: document.querySelector('#inverted-text'),
+        colorSelect: document.querySelector('#color-select')
+      };
+
+      const invertText = (text) => {
+        return text.split('').reverse().join('');
+      };
+
+      const handleInput = (event) => {
+        const inputText = event.target.value;
+        htmlElements.invertedTextSpan.textContent = invertText(inputText);
+        updateTextColor();
+      };
+
+      const handleColorChange = () => {
+        updateTextColor();
+      };
+
+      const updateTextColor = () => {
+        const selectedColor = htmlElements.colorSelect.value;
+        htmlElements.invertedTextSpan.style.color = selectedColor;
+      };
+
+      const bindEvents = () => {
+        htmlElements.inputField.addEventListener('input', handleInput);
+        htmlElements.colorSelect.addEventListener('change', handleColorChange);
+      };
+
+      return {
+        init() {
+          bindEvents();
+        }
+      };
+    })();
+    
+    TextInverter.init();
+  </script>
+</body>
+</html>
