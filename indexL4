@@ -70,8 +70,8 @@
         return text.split('').reverse().join('');
       };
 
-      const handleInput = (event) => {
-        const inputText = event.target.value;
+      const handleInput = () => {
+        const inputText = htmlElements.inputField.value;
         htmlElements.invertedTextSpan.textContent = invertText(inputText);
         updateTextColor();
       };
@@ -96,7 +96,7 @@
         }
       };
     })();
-    
+
     TextInverter.init();
   </script>
 </body>
