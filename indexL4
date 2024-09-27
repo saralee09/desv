@@ -59,7 +59,7 @@
   </main>
 
   <script>
-    const TextInverter = (() => {
+    (function() {
       const htmlElements = {
         inputField: document.querySelector('#input-text'),
         invertedTextSpan: document.querySelector('#inverted-text'),
@@ -70,19 +70,19 @@
         return text.split('').reverse().join('');
       };
 
-      const handleInput = () => {
-        const inputText = htmlElements.inputField.value;
-        htmlElements.invertedTextSpan.textContent = invertText(inputText);
-        updateTextColor();
-      };
-
-      const handleColorChange = () => {
-        updateTextColor();
-      };
-
       const updateTextColor = () => {
         const selectedColor = htmlElements.colorSelect.value;
         htmlElements.invertedTextSpan.style.color = selectedColor;
+      };
+
+      const handleInput = (event) => {
+        const inputText = event.target.value;
+        htmlElements.invertedTextSpan.textContent = invertText(inputText);
+        updateTextColor(); // Actualiza el color cada vez que se ingresa texto
+      };
+
+      const handleColorChange = () => {
+        updateTextColor(); // Actualiza el color cuando cambias la selección
       };
 
       const bindEvents = () => {
@@ -90,14 +90,9 @@
         htmlElements.colorSelect.addEventListener('change', handleColorChange);
       };
 
-      return {
-        init() {
-          bindEvents();
-        }
-      };
+      // Iniciar el módulo
+      bindEvents();
     })();
-
-    TextInverter.init();
   </script>
 </body>
 </html>
